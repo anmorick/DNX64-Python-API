@@ -1,22 +1,26 @@
-<!doctype html>
-<html lang="en-US" xml:lang="en-US" style="height: 100%">
-  <head>
-    <title>DNX64 Python Simple Wifi Preview</title>
-    <style type="text/css">
-      html,
-      body {
-        overflow-y: hidden;
-        margin: 0;
-        padding: 0;
+<html style="height: 100%;">
+    <BODY TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" style="height: 100%;" bgcolor="#000000">
+    <center><img id="stream" src="http://10.10.10.254:8080/?action=stream" border="0" style="height: 100%;">
+	</center>
+	<script>
+
+      let image = document.getElementById('stream');
+
+      async function check() {
+        while (true) {
+          try {
+            await image.decode();
+          } catch {
+            let src = image.src;
+            image.src = "";
+            image.src = src;
+          }
+      
+          await new Promise((resolve) => setTimeout(resolve, 5000));
+        }
       }
-    </style>
-  </head>
-  <body style="text-align: center; height: 100%; width: auto" bgcolor="#ffffff">
-    <img
-      src="http://10.10.10.254:8080/?action=stream"
-      alt="stream when connect WF10/WF20"
-      style="height: 100%; width: auto"
-      loading="lazy"
-    />
-  </body>
+      
+      check();
+    </script>
+
 </html>
